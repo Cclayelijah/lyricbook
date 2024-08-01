@@ -75,17 +75,16 @@ const Page = () => {
                         <Text style={{ fontSize: 22, color: Colors.blue, fontWeight: 800 }}>
                           {item.id}
                         </Text>
-
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={{ color: '#17191C', fontSize: 14, fontWeight: 800, alignSelf: 'flex-end', maxWidth: 325}}>
-                          {item.definition}
+                        <Text style={{ color: '#17191C', fontSize: 14, fontWeight: 800, alignSelf: 'flex-end', maxWidth: 325}}>
+                          {item.pinyin}
                         </Text>
                       </View>
                       <View style={{ flexDirection: 'row', gap: 4 }}>
                         <Text style={{ color: '#17191C', fontSize: 14, fontWeight: 700}}>
                           {item.wordType}
                         </Text>
-                        <Text style={{ color: Colors.darkGray}}>
-                          {item.pinyin}
+                        <Text numberOfLines={1} ellipsizeMode='tail' style={{ color: Colors.darkGray}}>
+                          {item.definition}
                         </Text>
                       </View>
                     </View>
