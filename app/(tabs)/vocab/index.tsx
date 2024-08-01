@@ -13,7 +13,7 @@ const nextArrowImage = Image.resolveAssetSource(next_arrow).uri;
 const Page = () => {
 
   const removeSong = (vocab: string) => {
-    console.log(vocab)
+    //console.log(vocab)
     // todo
   }
   const vocabulary: any = [
