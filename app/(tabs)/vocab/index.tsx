@@ -16,32 +16,30 @@ const Page = () => {
     //console.log(vocab)
     // todo
   }
+
+  
   const vocabulary: any = [
     {
-      'id': 1,
-      'chinese': '未来',
-      'pinyin': 'wei lai',
+      'id': '吸引',
+      'pinyin': 'Xīyǐn',
       'wordType': 'VERB',
       'definition': 'attract; draw; fascinate'
     },
     {
-      'id': 2,
-      'chinese': '情歌',
-      'pinyin': 'qing ge',
+      'id': '擅长',
+      'pinyin': 'Shàncháng',
       'wordType': 'VERB',
-      'definition': 'be good at; be expert in; be skilled in dfsfsfsfsf'
+      'definition': 'be good at; be expert in; be skilled in'
     },
     {
-      'id': 3,
-      'chinese': '在',
-      'pinyin': 'zai',
+      'id': '撒谎',
+      'pinyin': 'Sāhuǎng',
       'wordType': 'VERB COLLOQUIAL',
       'definition': 'tell a lie; lie'
     },
     {
-      'id': 4,
-      'chinese': '身邊',
-      'pinyin': 'shen bian',
+      'id': '打扫',
+      'pinyin': 'Dǎsǎo',
       'wordType': 'VERB',
       'definition': 'clean; sweep'
     },
@@ -75,7 +73,7 @@ const Page = () => {
                     <View style={{ flex: 1, gap: 2 }}>
                       <View style={{flexDirection: 'row', gap: 4 }}>
                         <Text style={{ fontSize: 22, color: Colors.blue, fontWeight: 800 }}>
-                          {item.chinese}
+                          {item.id}
                         </Text>
 
                         <Text numberOfLines={1} ellipsizeMode='tail' style={{ color: '#17191C', fontSize: 14, fontWeight: 800, alignSelf: 'flex-end', maxWidth: 325}}>
