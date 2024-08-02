@@ -1,19 +1,21 @@
 import Colors from '@/constants/Colors'
 import { Feather, Ionicons } from '@expo/vector-icons'
-import { View, Text, ScrollView, StyleSheet, Image } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, Image, Pressable } from 'react-native'
 import Animated, { CurvedTransition, FadeInUp, FadeOutUp } from 'react-native-reanimated'
 import SwipeableRow from '@/app/components/SwipeableRow'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { defaultStyles } from '@/constants/Styles'
 import next_arrow from '@/assets/images/next_arrow.png'
+import { Link, router, useRouter, } from 'expo-router'
 
 const transition = CurvedTransition.delay(50)
 const nextArrowImage = Image.resolveAssetSource(next_arrow).uri;
 
 const Page = () => {
+  const router = useRouter()
 
-  const removeSong = (vocab: string) => {
-    //console.log(vocab)
+  const removeVocab = (vocab:string) => {
+    console.log(vocab)
     // todo
   }
 
@@ -46,62 +48,74 @@ const Page = () => {
   ]
 
 
-
   return (
-    <View style={{flex:1, backgroundColor: Colors.white}}>
+    <View style={{
+        ...defaultStyles.container,
+      }}>
       <ScrollView 
         contentInsetAdjustmentBehavior='automatic'
         contentContainerStyle={{paddingBottom: 40}}>
         <Animated.View style={defaultStyles.block} layout={transition.delay(50)}>
-          <Animated.FlatList 
+          <Animated.FlatList
             itemLayoutAnimation={transition}
             skipEnteringExitingAnimations
-            data={vocabulary} 
-            scrollEnabled={false} 
+            data={vocabulary}
+            scrollEnabled={false}
             keyExtractor={(item) => item.id.toString()}
             ItemSeparatorComponent={() => <View style={defaultStyles.separator} />}
             
             renderItem={({item}) => (
-              <SwipeableRow onDelete={() => removeSong(item)}>
-                <TouchableOpacity>
-                  <Animated.View 
-                    style={styles.row}
-                    entering={FadeInUp.delay(100)}
-                    exiting={FadeOutUp.delay(100)}
-                  >
+              <SwipeableRow onDelete={() => removeVocab(item)}>
+                <Link href={{
+                  pathname: '/vocab/[id]',
+                  params: { id: item.id.toString() }
+                  }} asChild>
+                  <TouchableOpacity>
+                    <Animated.View 
+                      style={styles.row}
+                      entering={FadeInUp.delay(100)}
+                      exiting={FadeOutUp.delay(100)}
+                    >
                     
-                    <View style={{ flex: 1, gap: 2 }}>
-                      <View style={{flexDirection: 'row', gap: 4 }}>
-                        <Text style={{ fontSize: 22, color: Colors.blue, fontWeight: 800 }}>
-                          {item.id}
-                        </Text>
-                        <Text style={{ color: '#17191C', fontSize: 14, fontWeight: 800, alignSelf: 'flex-end', maxWidth: 325}}>
-                          {item.pinyin}
-                        </Text>
-                      </View>
-                      <View style={{ flexDirection: 'row', gap: 4 }}>
-                        <Text style={{ color: '#17191C', fontSize: 14, fontWeight: 700}}>
-                          {item.wordType}
-                        </Text>
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={{ color: Colors.darkGray}}>
-                          {item.definition}
-                        </Text>
-                      </View>
-                    </View>
+                      <View style={{ flex: 1, gap: 2 }}>
+                        <View style={{ flexDirection: 'row', gap: 4, alignItems: 'flex-end' }}>
+                          <Text style={{ fontSize: 22, color: Colors.blue, fontWeight: 800 }}>
+                            {item.id}
+                          </Text>
 
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          gap: 4,
-                          alignItems: 'center',
-                        }}>
-                        <Image
-                          source={{uri: nextArrowImage}}
-                          style={{width: 30, height: 30}}
-                        />
+                          <Feather
+                            name='book'
+                            size={16}
+                            color={Colors.darkGray}
+                          />
+                          <Text style={{ color: Colors.darkGray, flex: 1, fontWeight: 600 }}>
+                           {item.pinyin}
+                          </Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', gap: 4 }}>
+                          <Text style={{ color: Colors.primary, fontSize: 14, fontWeight: 800}}>
+                            {item.wordType}
+                          </Text>
+                          <Text numberOfLines={1} ellipsizeMode='tail' style={{ color: Colors.darkGray}}>
+                            {item.definition}
+                          </Text>
+                        </View>
                       </View>
-                  </Animated.View>
-                </TouchableOpacity>
+
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            gap: 4,
+                            alignItems: 'center',
+                          }}>
+                          <Image
+                            source={{uri: nextArrowImage}}
+                            style={{width: 30, height: 30}}
+                          />
+                        </View>
+                    </Animated.View>
+                  </TouchableOpacity>
+                </Link>
               </SwipeableRow>
             )} 
           />
