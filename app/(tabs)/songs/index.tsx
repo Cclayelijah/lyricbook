@@ -34,9 +34,10 @@ const Page = () => {
   ]
 
 
-
   return (
-    <View style={{flex:1, backgroundColor: Colors.white}}>
+    <View style={{
+        ...defaultStyles.container
+      }}>
       <ScrollView 
         contentInsetAdjustmentBehavior='automatic'
         contentContainerStyle={{paddingBottom: 40}}>
@@ -58,7 +59,7 @@ const Page = () => {
                     exiting={FadeOutUp.delay(100)}
                   >
                     
-                    <View style={{ flex: 1, gap: 2 }}>
+                    <View style={{ flex: 1, gap: 2, width: '100%' }}>
                       <Text style={{ fontSize: 22, color: Colors.blue, fontWeight: 800 }}>
                         {item.title}
                       </Text>

@@ -1,47 +1,54 @@
 import Colors from '@/constants/Colors'
 import { Feather, Ionicons } from '@expo/vector-icons'
-import { View, Text, ScrollView, StyleSheet, Image } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, Image, Pressable } from 'react-native'
 import Animated, { CurvedTransition, FadeInUp, FadeOutUp } from 'react-native-reanimated'
 import SwipeableRow from '@/app/components/SwipeableRow'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { defaultStyles } from '@/constants/Styles'
 import next_arrow from '@/assets/images/next_arrow.png'
+import { Link, router, useRouter, } from 'expo-router'
 
 const transition = CurvedTransition.delay(50)
 const nextArrowImage = Image.resolveAssetSource(next_arrow).uri;
 
 const Page = () => {
+  const router = useRouter()
 
-  const removeSong = (vocab) => {
+  const removeVocab = (vocab) => {
     // todo
   }
   const vocabulary: any = [
     {
-      'id': 1,
-      'chinese': '未来',
-      'pinyin': 'wei lai'
+      'id': '吸引',
+      'pinyin': 'Xīyǐn',
+      'wordType': 'VERB',
+      'definition': 'attract; draw; fascinate'
     },
     {
-      'id': 2,
-      'chinese': '情歌',
-      'pinyin': 'qing ge'
+      'id': '擅长',
+      'pinyin': 'Shàncháng',
+      'wordType': 'VERB',
+      'definition': 'be good at; be expert in; be skilled in'
     },
     {
-      'id': 3,
-      'chinese': '在',
-      'pinyin': 'zai'
+      'id': '撒谎',
+      'pinyin': 'Sāhuǎng',
+      'wordType': 'VERB COLLOQUIAL',
+      'definition': 'tell a lie; lie'
     },
     {
-      'id': 4,
-      'chinese': '身邊',
-      'pinyin': 'shen bian'
+      'id': '打扫',
+      'pinyin': 'Dǎsǎo',
+      'wordType': 'VERB',
+      'definition': 'clean; sweep'
     },
   ]
 
 
-
   return (
-    <View style={{flex:1, backgroundColor: Colors.white}}>
+    <View style={{
+        ...defaultStyles.container,
+      }}>
       <ScrollView 
         contentInsetAdjustmentBehavior='automatic'
         contentContainerStyle={{paddingBottom: 40}}>
@@ -55,44 +62,49 @@ const Page = () => {
             ItemSeparatorComponent={() => <View style={defaultStyles.separator} />}
             
             renderItem={({item}) => (
-              <SwipeableRow onDelete={() => removeSong(item)}>
-                <TouchableOpacity>
-                  <Animated.View 
-                    style={styles.row}
-                    entering={FadeInUp.delay(100)}
-                    exiting={FadeOutUp.delay(100)}
-                  >
-                    
-                    <View style={{ flex: 1, gap: 2 }}>
-                      <Text style={{ fontSize: 22, color: Colors.blue, fontWeight: 800 }}>
-                        {item.chinese}
-                      </Text>
-
-                      <View style={{ flexDirection: 'row', gap: 4 }}>
-                        <Feather
-                          name='book'
-                          size={16}
-                          color={Colors.darkGray}
-                        />
-                        <Text style={{ color: Colors.darkGray, flex: 1 }}>
-                          {item.pinyin}
+              <SwipeableRow onDelete={() => removeVocab(item)}>
+                <Link href={{
+                  pathname: '/vocab/[id]',
+                  params: { id: item.id.toString() }
+                  }} asChild>
+                  <TouchableOpacity>
+                    <Animated.View 
+                      style={styles.row}
+                      entering={FadeInUp.delay(100)}
+                      exiting={FadeOutUp.delay(100)}
+                    >
+                      
+                      <View style={{ flex: 1, gap: 2 }}>
+                        <Text style={{ fontSize: 22, color: Colors.blue, fontWeight: 800 }}>
+                          {item.id}
                         </Text>
-                      </View>
-                    </View>
 
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          gap: 4,
-                          alignItems: 'center',
-                        }}>
-                        <Image
-                          source={{uri: nextArrowImage}}
-                          style={{width: 30, height: 30}}
-                        />
+                        <View style={{ flexDirection: 'row', gap: 4 }}>
+                          <Feather
+                            name='book'
+                            size={16}
+                            color={Colors.darkGray}
+                          />
+                          <Text style={{ color: Colors.darkGray, flex: 1 }}>
+                            {item.pinyin}
+                          </Text>
+                        </View>
                       </View>
-                  </Animated.View>
-                </TouchableOpacity>
+
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            gap: 4,
+                            alignItems: 'center',
+                          }}>
+                          <Image
+                            source={{uri: nextArrowImage}}
+                            style={{width: 30, height: 30}}
+                          />
+                        </View>
+                    </Animated.View>
+                  </TouchableOpacity>
+                </Link>
               </SwipeableRow>
             )} 
           />

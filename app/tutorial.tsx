@@ -8,6 +8,7 @@ import blue_arrow from '@/assets/images/blue_arrow.png'
 import orange_arrow from '@/assets/images/orange_arrow.png'
 import { Link, router } from 'expo-router';
 import { useState } from 'react';
+import { defaultStyles } from '@/constants/Styles'
 
 
 const bannerImage1 = Image.resolveAssetSource(banner1).uri;
@@ -46,7 +47,6 @@ const Page = () => {
   const [navIndex, setNavIndex] = useState(0)
 
     const clickBack = () => {
-      console.log('click back')
       if (navIndex > 0) {
         setNavIndex(index => {
           return index - 1
@@ -55,7 +55,6 @@ const Page = () => {
     }
 
     const clickForward = () => {
-      console.log('click forward')
       if (navIndex < 2) {
         setNavIndex(index => {
           return index + 1;
@@ -68,7 +67,11 @@ const Page = () => {
   }
 
     return (
-        <View style={styles.page}>
+      <View style={{
+          ...defaultStyles.container,
+          paddingTop: 30,
+          paddingBottom: 30
+        }}>
           <>
             <Image source={{uri: pageData[navIndex]['image']}} style={styles.display} />
             <View style={styles.container}>
@@ -82,11 +85,13 @@ const Page = () => {
             </View>
             <View style={styles.navigation}>
               <View style={styles.navLeft}>
-                <View style={{...styles.navSelected, borderColor: pageData[navIndex]['color']}}></View>
+                {navIndex === 0 && <View style={{...styles.navSelected, borderColor: Colors.green}}></View>}
                 <View style={styles.navGrey}></View>
+                {navIndex === 1 && <View style={{...styles.navSelected, borderColor: Colors.blue}}></View>}
                 <View style={styles.navGrey}></View>
+                {navIndex === 2 && <View style={{...styles.navSelected, borderColor: Colors.orange}}></View>}
               </View>
-              <TouchableOpacity style={styles.navRight}>
+              <TouchableOpacity style={styles.navRight} onPress={clickForward}>
                 <Text style={styles.next}>{navIndex == 2 ? 'Get Started' : 'Next'}</Text>
                 <Image source={{uri: pageData[navIndex]['arrow']}} style={styles.arrow} />
               </TouchableOpacity>
@@ -99,13 +104,6 @@ const Page = () => {
 };
 
 const styles = StyleSheet.create({
-  page: {
-    display: 'flex',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff'
-  },
   clickLeft: {
     position: 'absolute',
     top: 0,
@@ -126,7 +124,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 8,
     borderBottomLeftRadius: 8,
     marginBottom: 10,
-    marginTop: 50
+    marginTop: 30
   },
   container: {
     padding: 40,
@@ -169,7 +167,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 40,
     paddingTop: 20,
-    paddingBottom: 50,
+    paddingBottom: 10,
   },
   navLeft: {
     display: 'flex',

@@ -2,6 +2,11 @@ import Colors from '@/constants/Colors';
 import { StyleSheet } from 'react-native';
 
 export const defaultStyles = StyleSheet.create({
+  container: {
+      flex: 1,
+      display: 'flex',
+      backgroundColor: '#fff'
+  },
   block: {
     backgroundColor: '#fff',
     borderRadius: 10,

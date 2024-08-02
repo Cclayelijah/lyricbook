@@ -10,6 +10,7 @@ import { View } from 'react-native';
 
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import * as SecureStore from 'expo-secure-store'
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
@@ -64,6 +65,7 @@ const InitialLayout = () => {
     // SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     ...FontAwesome.font,
   });
+  const insets = useSafeAreaInsets();
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
@@ -95,13 +97,13 @@ const InitialLayout = () => {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false, headerBackVisible: false }} />
-      <Stack.Screen name="tutorial" options={{ headerShown: false, headerBackVisible: false }} />
-      {/* <Stack.Screen name="login" options={{ headerShown: false, headerBackVisible: false }} />
-      <Stack.Screen name="signup" options={{ headerShown: false, headerBackVisible: false }} /> */}
-      <Stack.Screen name="(tabs)" options={{ headerShown: false, headerBackVisible: false}} />
-    </Stack>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false, headerBackVisible: false }} />
+        <Stack.Screen name="tutorial" options={{ headerShown: false, headerBackVisible: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false, headerBackVisible: false}} />
+        {/* <Stack.Screen name="login" options={{ headerShown: false, headerBackVisible: false }} />
+        <Stack.Screen name="signup" options={{ headerShown: false, headerBackVisible: false }} /> */}
+      </Stack>
   )
 }
 
@@ -111,7 +113,9 @@ function RootLayoutNav() {
   return (
     <ClerkProvider publishableKey={publishableKey!} tokenCache={tokenCache}>
       <ThemeProvider value={DefaultTheme}>
-        <InitialLayout />
+        <SafeAreaProvider>
+          <InitialLayout />
+        </SafeAreaProvider>
       </ThemeProvider>
     </ClerkProvider>
   );

@@ -2,6 +2,7 @@ import { Text, View, StyleSheet, Image, TouchableOpacity, Linking, Platform } fr
 import Colors from '@/constants/Colors'
 import logo_image from '@/assets/images/logo.png'
 import { Link } from 'expo-router';
+import { defaultStyles } from '@/constants/Styles';
 
 
 const logoImage = Image.resolveAssetSource(logo_image).uri;
@@ -13,7 +14,11 @@ const Page = () => {
     }
 
     return (
-        <View style={styles.container}>
+        <View style={{
+                ...defaultStyles.container, 
+                justifyContent: 'center', 
+                alignItems: 'center',
+            }}>
             <Image source={{ uri: logoImage }} style={styles.welcome} />
             <Text style={styles.headline}>Welcome to Lyric Book</Text>
             <Text style={styles.description}>
@@ -37,13 +42,6 @@ const Page = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff'
-    },
     welcome: {
         width: '100%',
         height: 300,
