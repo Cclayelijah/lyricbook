@@ -14,9 +14,12 @@ const nextArrowImage = Image.resolveAssetSource(next_arrow).uri;
 const Page = () => {
   const router = useRouter()
 
-  const removeVocab = (vocab) => {
+  const removeVocab = (vocab:string) => {
+    console.log(vocab)
     // todo
   }
+
+  
   const vocabulary: any = [
     {
       'id': '吸引',
@@ -53,11 +56,11 @@ const Page = () => {
         contentInsetAdjustmentBehavior='automatic'
         contentContainerStyle={{paddingBottom: 40}}>
         <Animated.View style={defaultStyles.block} layout={transition.delay(50)}>
-          <Animated.FlatList 
+          <Animated.FlatList
             itemLayoutAnimation={transition}
             skipEnteringExitingAnimations
-            data={vocabulary} 
-            scrollEnabled={false} 
+            data={vocabulary}
+            scrollEnabled={false}
             keyExtractor={(item) => item.id.toString()}
             ItemSeparatorComponent={() => <View style={defaultStyles.separator} />}
             
@@ -73,20 +76,28 @@ const Page = () => {
                       entering={FadeInUp.delay(100)}
                       exiting={FadeOutUp.delay(100)}
                     >
-                      
+                    
                       <View style={{ flex: 1, gap: 2 }}>
-                        <Text style={{ fontSize: 22, color: Colors.blue, fontWeight: 800 }}>
-                          {item.id}
-                        </Text>
+                        <View style={{ flexDirection: 'row', gap: 4, alignItems: 'flex-end' }}>
+                          <Text style={{ fontSize: 22, color: Colors.blue, fontWeight: 800 }}>
+                            {item.id}
+                          </Text>
 
-                        <View style={{ flexDirection: 'row', gap: 4 }}>
                           <Feather
                             name='book'
                             size={16}
                             color={Colors.darkGray}
                           />
-                          <Text style={{ color: Colors.darkGray, flex: 1 }}>
-                            {item.pinyin}
+                          <Text style={{ color: Colors.darkGray, flex: 1, fontWeight: 600 }}>
+                           {item.pinyin}
+                          </Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', gap: 4 }}>
+                          <Text style={{ color: Colors.primary, fontSize: 14, fontWeight: 800}}>
+                            {item.wordType}
+                          </Text>
+                          <Text numberOfLines={1} ellipsizeMode='tail' style={{ color: Colors.darkGray}}>
+                            {item.definition}
                           </Text>
                         </View>
                       </View>
