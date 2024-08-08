@@ -70,7 +70,7 @@ const Page = () => {
       <View style={{
           ...defaultStyles.container,
           paddingTop: 30,
-          paddingBottom: 30
+          paddingBottom: 40
         }}>
           <>
             <Image source={{uri: pageData[navIndex]['image']}} style={styles.display} />

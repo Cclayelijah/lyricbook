@@ -10,6 +10,11 @@ export default {
   darkGray: '#333',
   background: '#f1f1f1',
   white: '#fff',
+  tone1: '#d43737',
+  tone2: '#3ad437',
+  tone3: '#8837d4',
+  tone4: '#d43763',
+  tone5: '#696969',
   light: {
     text: '#000',
     background: '#fff',
