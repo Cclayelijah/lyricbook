@@ -6,6 +6,7 @@ import SwipeableRow from '@/app/components/SwipeableRow'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { defaultStyles } from '@/constants/Styles'
 import next_arrow from '@/assets/images/next_arrow.png'
+import { Link } from 'expo-router'
 
 const transition = CurvedTransition.delay(50)
 const nextArrowImage = Image.resolveAssetSource(next_arrow).uri;
@@ -42,53 +43,58 @@ const Page = () => {
         contentInsetAdjustmentBehavior='automatic'
         contentContainerStyle={{paddingBottom: 40}}>
         <Animated.View style={defaultStyles.block} layout={transition.delay(50)}>
-          <Animated.FlatList 
+          <Animated.FlatList
             itemLayoutAnimation={transition}
             skipEnteringExitingAnimations
-            data={songs} 
-            scrollEnabled={false} 
+            data={songs}
+            scrollEnabled={false}
             keyExtractor={(item) => item.id.toString()}
             ItemSeparatorComponent={() => <View style={defaultStyles.separator} />}
             
             renderItem={({item}) => (
               <SwipeableRow onDelete={() => removeSong(item)}>
-                <TouchableOpacity>
-                  <Animated.View 
-                    style={styles.row}
-                    entering={FadeInUp.delay(100)}
-                    exiting={FadeOutUp.delay(100)}
-                  >
-                    
-                    <View style={{ flex: 1, gap: 2, width: '100%' }}>
-                      <Text style={{ fontSize: 22, color: Colors.blue, fontWeight: 800 }}>
-                        {item.title}
-                      </Text>
-
-                      <View style={{ flexDirection: 'row', gap: 4 }}>
-                        <Feather
-                          name='user'
-                          size={16}
-                          color={Colors.darkGray}
-                        />
-                        <Text style={{ color: Colors.darkGray, flex: 1 }}>
-                          {item.artist}
+                <Link href={{
+                  pathname: '/songs/[id]',
+                  params: { id: item.id.toString() }
+                  }} asChild>
+                  <TouchableOpacity>
+                    <Animated.View
+                      style={styles.row}
+                      entering={FadeInUp.delay(100)}
+                      exiting={FadeOutUp.delay(100)}
+                    >
+                      
+                      <View style={{ flex: 1, gap: 2, width: '100%' }}>
+                        <Text style={{ fontSize: 22, color: Colors.blue, fontWeight: 800 }}>
+                          {item.title}
                         </Text>
-                      </View>
-                    </View>
 
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          gap: 4,
-                          alignItems: 'center',
-                        }}>
-                        <Image
-                          source={{uri: nextArrowImage}}
-                          style={{width: 30, height: 30}}
-                        />
+                        <View style={{ flexDirection: 'row', gap: 4 }}>
+                          <Feather
+                            name='user'
+                            size={16}
+                            color={Colors.darkGray}
+                          />
+                          <Text style={{ color: Colors.darkGray, flex: 1 }}>
+                            {item.artist}
+                          </Text>
+                        </View>
                       </View>
-                  </Animated.View>
-                </TouchableOpacity>
+
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            gap: 4,
+                            alignItems: 'center',
+                          }}>
+                          <Image
+                            source={{uri: nextArrowImage}}
+                            style={{width: 30, height: 30}}
+                          />
+                        </View>
+                    </Animated.View>
+                  </TouchableOpacity>
+                </Link>
               </SwipeableRow>
             )} 
           />

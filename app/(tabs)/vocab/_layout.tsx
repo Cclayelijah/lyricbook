@@ -1,6 +1,6 @@
 import Colors from '@/constants/Colors'
 import { FontAwesome5 } from '@expo/vector-icons'
-import { Link, router, Stack, useNavigation } from 'expo-router'
+import { Link, router, Stack } from 'expo-router'
 import { Image, Pressable, TouchableOpacity } from 'react-native'
 import vocab_remove from '@/assets/images/vocab_remove.png'
 import vocab_add from '@/assets/images/vocab_add.png'
@@ -11,7 +11,6 @@ const vocabAddImage = Image.resolveAssetSource(vocab_add).uri;
 const backArrowImage = Image.resolveAssetSource(back_arrow).uri;
 
 const Layout = () => {
-  const navigation = useNavigation();
   
   return (
     <Stack>
@@ -37,7 +36,7 @@ const Layout = () => {
       <Stack.Screen 
         name="[id]"
         options={{ 
-          headerTitle: 'Word',
+          headerTitle: 'Card',
           headerLargeTitle: false,
           headerShadowVisible: false,
           headerStyle: { backgroundColor: '#fff' },

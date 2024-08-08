@@ -1,16 +1,19 @@
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Stack, useRouter, useSegments } from 'expo-router';
+import { Slot, Stack, useRouter, useSegments } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { useColorScheme } from '@/components/useColorScheme';
-import { View } from 'react-native';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 
-import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
+import { ClerkProvider, useAuth, ClerkLoaded } from '@clerk/clerk-expo';
 import * as SecureStore from 'expo-secure-store'
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { defaultStyles } from '@/constants/Styles';
+import { SlideInDown } from 'react-native-reanimated';
+import { OverlayProvider } from 'react-native-popper';
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
@@ -93,7 +96,7 @@ const InitialLayout = () => {
   }, [isSignedIn])
 
   if (!loaded || !isLoaded) {
-    return <View />;
+    return <Slot />;
   }
 
   return (
@@ -107,18 +110,31 @@ const InitialLayout = () => {
   )
 }
 
-function RootLayoutNav() {
+const RootLayoutNav = () => {
   const colorScheme = useColorScheme();
 
   return (
     <ClerkProvider publishableKey={publishableKey!} tokenCache={tokenCache}>
-      <ThemeProvider value={DefaultTheme}>
-        <SafeAreaProvider>
-          <InitialLayout />
-        </SafeAreaProvider>
-      </ThemeProvider>
+      <ClerkLoaded>
+        <ThemeProvider value={DefaultTheme}>
+          <SafeAreaProvider>
+            <OverlayProvider>
+              <InitialLayout />
+            </OverlayProvider>
+          </SafeAreaProvider>
+        </ThemeProvider>
+      </ClerkLoaded>
     </ClerkProvider>
   );
 }
 
 export default RootLayoutNav;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+})
