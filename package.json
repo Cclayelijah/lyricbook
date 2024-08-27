@@ -13,9 +13,10 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@clerk/clerk-expo": "^1.2.7",
+    "@clerk/clerk-expo": "^1.2.9",
     "@expo/vector-icons": "^14.0.0",
     "@react-navigation/native": "^6.0.2",
+    "@supabase/supabase-js": "^2.45.2",
     "date-fns": "^3.6.0",
     "expo": "~51.0.2",
     "expo-font": "~12.0.4",
@@ -27,6 +28,7 @@
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.4",
     "expo-web-browser": "~13.0.3",
+    "npx": "^10.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.1",
